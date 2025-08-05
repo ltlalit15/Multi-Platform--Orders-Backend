@@ -9,7 +9,6 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Shopify Orders API with cursor-based pagination
 app.post('/shopify/orders', async (req, res) => {
   const { storeUrl, accessToken } = req.body;
 
@@ -52,7 +51,6 @@ app.post('/shopify/orders', async (req, res) => {
   }
 });
 
-// Helper: extract page_info from Link header
 function extractPageInfo(linkHeader, relType) {
   const match = linkHeader.split(',').find(part => part.includes(relType));
   if (!match) return null;
@@ -61,6 +59,7 @@ function extractPageInfo(linkHeader, relType) {
   const url = new URL(urlMatch[1]);
   return url.searchParams.get('page_info');
 }
+
 
 app.get('/', (req, res) => {
   res.send('✅ Shopify API with cursor pagination is running...');
